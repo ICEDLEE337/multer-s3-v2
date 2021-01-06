@@ -31,6 +31,8 @@ function autoContentType (req, file, cb) {
     var type = fileType(firstChunk)
     var mime
 
+    console.log('type is:', type)
+
     if (type) {
       mime = type.mime
     } else if (isSvg(firstChunk)) {
