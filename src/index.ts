@@ -1,11 +1,11 @@
-var crypto = require('crypto')
-var stream = require('stream')
-var fileType = require('file-type')
-var isSvg = require('is-svg')
-var parallel = require('run-parallel')
+import {randomBytes} from 'crypto'
+import {PassThrough} from 'stream'
+import {fromBuffer} from 'file-type'
+import * as isSvg from 'is-svg'
+import * as parallel from 'run-parallel'
 
 function staticValue (value) {
-  return function (req, file, cb) {
+  return function (_req, _file, cb) {
     cb(null, value)
   }
 }
@@ -20,15 +20,15 @@ var defaultStorageClass = staticValue('STANDARD')
 var defaultSSE = staticValue(null)
 var defaultSSEKMS = staticValue(null)
 
-function defaultKey (req, file, cb) {
-  crypto.randomBytes(16, function (err, raw) {
+function defaultKey (_req, _file, cb) {
+  randomBytes(16, function (err, raw) {
     cb(err, err ? undefined : raw.toString('hex'))
   })
 }
 
 function autoContentType (req, file, cb) {
-  file.stream.once('data', function (firstChunk) {
-    var type = fileType(firstChunk)
+  file.stream.once('data', async function (firstChunk) {
+    var type = await fromBuffer(firstChunk)
     var mime
 
     console.log('type is:', type)
@@ -41,7 +41,7 @@ function autoContentType (req, file, cb) {
       mime = 'application/octet-stream'
     }
 
-    var outStream = new stream.PassThrough()
+    var outStream = new PassThrough()
 
     outStream.write(firstChunk)
     file.stream.pipe(outStream)
@@ -173,7 +173,7 @@ S3Storage.prototype._handleFile = function (req, file, cb) {
       fileStream = fileStream.pipe(transform)
     }
 
-    var params = {
+    var params: any = {
       Bucket: opts.bucket,
       Key: opts.key,
       ACL: opts.acl,
