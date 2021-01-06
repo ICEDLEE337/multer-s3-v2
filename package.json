@@ -1,14 +1,11 @@
 {
-  "name": "multer-s3-v2",
-  "version": "2.2.0",
+  "name": "multer-s3-v3",
+  "version": "3.0.0",
   "description": "Streaming multer storage engine for AWS S3 with file transform",
   "main": "index.js",
-  "scripts": {
-    "test": "standard && mocha test/basic.js"
-  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/techaks/multer-s3-v2.git"
+    "url": "git+https://github.com/icedlee337/multer-s3-v3.git"
   },
   "keywords": [
     "multer",
@@ -18,14 +15,14 @@
     "transforms",
     "sharp"
   ],
-  "author": "akash gupta",
+  "author": "lee norris",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/techaks/multer-s3-v2/issues"
+    "url": "https://github.com/icedlee337/multer-s3-v3/issues"
   },
-  "homepage": "https://github.com/techaks/multer-s3-v2#readme",
+  "homepage": "https://github.com/icedlee337/multer-s3-v3#readme",
   "dependencies": {
-    "file-type": "^3.3.0",
+    "file-type": "^16.1.0",
     "is-svg": "^2.1.0",
     "run-parallel": "^1.1.6"
   },

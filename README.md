@@ -7,7 +7,7 @@ This project is mostly an integration piece for existing code samples from Multe
 ## Installation
 
 ```sh
-npm install --save multer-s3-v2
+npm install --save multer-s3-v3
 ```
 
 ## Usage
@@ -16,7 +16,7 @@ npm install --save multer-s3-v2
 var aws = require("aws-sdk");
 var express = require("express");
 var multer = require("multer");
-var multerS3 = require("multer-s3-v2");
+var multerS3 = require("multer-s3-v3");
 
 var app = express();
 var s3 = new aws.S3({
