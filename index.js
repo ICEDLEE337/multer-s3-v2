@@ -76,7 +76,8 @@ function collect (storage, req, file, cb) {
         contentType: contentType,
         replacementStream: replacementStream,
         serverSideEncryption: values[7],
-        sseKmsKeyId: values[8]
+        sseKmsKeyId: values[8],
+        throwMimeTypeConflictErrors: this.throwMimeTypeConflictErrors
       })
     })
   })
@@ -155,6 +156,7 @@ function S3Storage (opts) {
     default: throw new TypeError('Expected opts.sseKmsKeyId to be undefined, string, or function')
   }
 
+  this.throwMimeTypeConflictErrors = opts.throwMimeTypeConflictErrors
   this.transforms = opts.transforms
 }
 
@@ -187,7 +189,7 @@ S3Storage.prototype._handleFile = function (req, file, cb) {
     if (opts.contentDisposition) {
       params.ContentDisposition = opts.contentDisposition
     }
-
+    console.log(opts.throwMimeTypeConflictErrors)
     if (opts.throwMimeTypeConflictErrors && (file.mimetype !== opts.contentType)) {
       return cb(new Error(`MIMETYPE_MISMATCH: Actual content-type "${opts.contentType}" does not match the mime-type "${file.mimetype}" assumed by the file extension for file "${file.originalname}"`))
     }
