@@ -173,6 +173,9 @@ S3Storage.prototype._handleFile = function (req, file, cb) {
       fileStream = fileStream.pipe(transform)
     }
 
+    console.log(file)
+    console.log(opts)
+
     var params = {
       Bucket: opts.bucket,
       Key: opts.key,
