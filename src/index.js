@@ -31,6 +31,7 @@ function autoContentType(req, file, cb) {
     var type = await fromBuffer(firstChunk)
     var mime
 
+    console.log('file is:', file)
     console.log('type is:', type)
 
     if (type) {
@@ -173,8 +174,8 @@ S3Storage.prototype._handleFile = function (req, file, cb) {
       fileStream = fileStream.pipe(transform)
     }
 
-    console.log(file)
-    console.log(opts)
+    console.log('inside collect file::', file)
+    console.log('inside collect opts::', opts)
 
     var params = {
       Bucket: opts.bucket,
