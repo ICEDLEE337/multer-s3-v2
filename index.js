@@ -188,8 +188,8 @@ S3Storage.prototype._handleFile = function (req, file, cb) {
       params.ContentDisposition = opts.contentDisposition
     }
 
-    if (file.mimetype !== opts.contentType) {
-      return cb(new Error(`Binary content type "${opts.contentType}" does not match the mime-type assumed by the file extension "${file.mimetype}" for file "${file.originalname}"`))
+    if (opts.throwMimeTypeConflictErrors && (file.mimetype !== opts.contentType)) {
+      return cb(new Error(`MIMETYPE_MISMATCH: Actual content-type "${opts.contentType}" does not match the mime-type "${file.mimetype}" assumed by the file extension for file "${file.originalname}"`))
     }
 
     var upload = this.s3.upload(params)
