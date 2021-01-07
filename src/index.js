@@ -31,9 +31,6 @@ function autoContentType(req, file, cb) {
     var type = await fromBuffer(firstChunk)
     var mime
 
-    console.log('file is:', file)
-    console.log('type is:', type)
-
     if (type) {
       mime = type.mime
     } else if (isSvg(firstChunk)) {
@@ -174,9 +171,6 @@ S3Storage.prototype._handleFile = function (req, file, cb) {
       fileStream = fileStream.pipe(transform)
     }
 
-    console.log('inside collect file::', file)
-    console.log('inside collect opts::', opts)
-
     var params = {
       Bucket: opts.bucket,
       Key: opts.key,
@@ -192,6 +186,10 @@ S3Storage.prototype._handleFile = function (req, file, cb) {
 
     if (opts.contentDisposition) {
       params.ContentDisposition = opts.contentDisposition
+    }
+
+    if (file.mimetype !== opts.contentType) {
+      return cb(new Error(`Binary content type "${opts.contentType}" does not match the mime-type assumed by the file extension "${file.mimetype}" for file "${file.originalname}"`))
     }
 
     var upload = this.s3.upload(params)
