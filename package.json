@@ -8,7 +8,7 @@
     "url": "git+https://github.com/icedlee337/multer-s3-v3.git"
   },
   "scripts": {
-    "build": "tsc -p ."
+    "test": "standard && mocha test/basic.js"
   },
   "keywords": [
     "multer",

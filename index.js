@@ -1,10 +1,10 @@
-const { randomBytes } = require('crypto');
-const { PassThrough } = require('stream');
-const { fromBuffer } = require('file-type');
-const isSvg = require('is-svg');
-const parallel = require('run-parallel');
+const { randomBytes } = require('crypto')
+const { PassThrough } = require('stream')
+const { fromBuffer } = require('file-type')
+const isSvg = require('is-svg')
+const parallel = require('run-parallel')
 
-function staticValue(value) {
+function staticValue (value) {
   return function (_req, _file, cb) {
     cb(null, value)
   }
@@ -20,13 +20,13 @@ var defaultStorageClass = staticValue('STANDARD')
 var defaultSSE = staticValue(null)
 var defaultSSEKMS = staticValue(null)
 
-function defaultKey(_req, _file, cb) {
+function defaultKey (_req, _file, cb) {
   randomBytes(16, function (err, raw) {
     cb(err, err ? undefined : raw.toString('hex'))
   })
 }
 
-function autoContentType(req, file, cb) {
+function autoContentType (req, file, cb) {
   file.stream.once('data', async function (firstChunk) {
     var type = await fromBuffer(firstChunk)
     var mime
@@ -48,7 +48,7 @@ function autoContentType(req, file, cb) {
   })
 }
 
-function collect(storage, req, file, cb) {
+function collect (storage, req, file, cb) {
   parallel([
     storage.getBucket.bind(storage, req, file),
     storage.getKey.bind(storage, req, file),
@@ -82,7 +82,7 @@ function collect(storage, req, file, cb) {
   })
 }
 
-function S3Storage(opts) {
+function S3Storage (opts) {
   switch (typeof opts.s3) {
     case 'object': this.s3 = opts.s3; break
     default: throw new TypeError('Expected opts.s3 to be object')
