@@ -266,7 +266,7 @@ var opts = {
 
 ## Other Options
 
-### `throwMimeTypeConflictErrorIf: (resolvedContentType, clientSpecifiedMimeType, file) => boolean`
+`throwMimeTypeConflictErrorIf: (resolvedContentType, clientSpecifiedMimeType, file) => boolean`
 
 If provided, this will be called to determine when to throw an exception (instead of uploading). It receives the following parameters:
 
