@@ -33,7 +33,7 @@ var upload = multer({
     key: function(req, file, cb) {
       cb(null, Date.now().toString());
     },
-    throwMimeTypeConflictErrors: true
+    throwMimeTypeConflictErrorIf: (contentType, mimeType, _file) => ![mimeType, 'application/octet-stream'].includes(contentType)
   })
 });
 
@@ -266,9 +266,13 @@ var opts = {
 
 ## Other Options
 
-### `throwMimeTypeConflictErrors: boolean?`
+### `throwMimeTypeConflictErrorIf: (resolvedContentType, clientSpecifiedMimeType, file) => boolean`
 
-If enabled, this will result in an exception (instead of an upload) when the mime-type reported by package [file-type](https://www.npmjs.com/package/file-type) does not match the mime-type encoded in the multi-part form data for a given file (see tests for example).
+If provided, this will be called to determine when to throw an exception (instead of uploading). It receives the following parameters:
+
+1. detected contentType as reported by package [file-type](https://www.npmjs.com/package/file-type)
+1. the mime-type encoded in the multi-part form data for a given file
+1. the file object itself
 
 ## Testing
 

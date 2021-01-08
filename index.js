@@ -155,13 +155,16 @@ function S3Storage (opts) {
     default: throw new TypeError('Expected opts.sseKmsKeyId to be undefined, string, or function')
   }
 
-  this.throwMimeTypeConflictErrors = opts.throwMimeTypeConflictErrors
+  this.throwMimeTypeConflictErrorIf = opts.throwMimeTypeConflictErrorIf
   this.transforms = opts.transforms
 }
 
 S3Storage.prototype._handleFile = function (req, file, cb) {
   collect(this, req, file, function (err, opts) {
     if (err) return cb(err)
+    if (typeof this.throwMimeTypeConflictErrorIf === 'function' && this.throwMimeTypeConflictErrorIf(opts.contentType, file.mimetype, file)) {
+      return cb(new Error(`MIMETYPE_MISMATCH: auto-detected content-type "${opts.contentType}" and client-specified mimetype "${file.mimetype}" failed configured validation for "${file.originalname}"`))
+    }
 
     var currentSize = 0
 
@@ -187,10 +190,6 @@ S3Storage.prototype._handleFile = function (req, file, cb) {
 
     if (opts.contentDisposition) {
       params.ContentDisposition = opts.contentDisposition
-    }
-
-    if (this.throwMimeTypeConflictErrors && (opts.contentType !== 'application/octet-stream') && (file.mimetype !== opts.contentType)) {
-      return cb(new Error(`MIMETYPE_MISMATCH: Actual content-type "${opts.contentType}" does not match the mime-type "${file.mimetype}" assumed by the file extension for file "${file.originalname}"`))
     }
 
     var upload = this.s3.upload(params)
