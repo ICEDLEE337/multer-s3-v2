@@ -163,8 +163,8 @@ export class S3Storage implements StorageEngine {
 
     const outputStream = new PassThrough();
 
-    fileStream.pipe(outputStream);
     const upload = this.uploadStream(params.ContentType as MimeType, params.Key, outputStream, opts.bucket, params)
+    fileStream.pipe(outputStream);
 
     upload.on('httpUploadProgress', function (ev) {
       if (ev.total) currentSize = ev.total

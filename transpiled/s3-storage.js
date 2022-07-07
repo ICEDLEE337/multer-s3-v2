@@ -181,8 +181,8 @@ class S3Storage {
                 params.ContentDisposition = opts.contentDisposition;
             }
             const outputStream = new stream_1.PassThrough();
-            fileStream.pipe(outputStream);
             const upload = this.uploadStream(params.ContentType, params.Key, outputStream, opts.bucket, params);
+            fileStream.pipe(outputStream);
             upload.on('httpUploadProgress', function (ev) {
                 if (ev.total)
                     currentSize = ev.total;
