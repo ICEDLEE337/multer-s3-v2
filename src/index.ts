@@ -1,9 +1,9 @@
 import { autoContentType } from './lib/auto-content-type.function';
 import {S3Storage} from './s3-storage';
 import {defaultContentType} from './lib/defaults.constant';
-import { IOptions } from './lib/types/options.interface';
+import { IS3StorageOptions } from './lib/types/options.interface';
 
-export default function (opts: IOptions) {
+export default function (opts: IS3StorageOptions) {
   return new S3Storage(opts)
 }
 
