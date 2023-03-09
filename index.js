@@ -47,7 +47,7 @@ function defaultKey(req, file, cb) {
 
 function autoContentType(req, file, cb) {
   file.stream.once('data', function (firstChunk) {
-    var type = fileType(firstChunk)
+    var type = fileType.fileTypeFromStream(file.stream)
     var mime = 'application/octet-stream' // default type
 
     // Make sure to check xml-extension for svg files.
@@ -57,7 +57,7 @@ function autoContentType(req, file, cb) {
       mime = type.mime
     }
 
-    var outStream = new stream.PassThrough()
+    var outStream = new PassThrough()
 
     outStream.write(firstChunk)
     file.stream.pipe(outStream)
