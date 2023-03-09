@@ -1,6 +1,6 @@
 const { randomBytes } = require('node:crypto')
 const { PassThrough } = require('node:stream')
-const fileType = require('file-type-node')
+const fileType = require('file-type-cjs-fix')
 const htmlCommentRegex = require('html-comment-regex')
 const parallel = require('run-parallel')
 const { Upload } = require('@aws-sdk/lib-storage')
@@ -47,7 +47,7 @@ function defaultKey(req, file, cb) {
 
 function autoContentType(req, file, cb) {
   file.stream.once('data', function (firstChunk) {
-    var type = fileType.fileTypeFromStream(file.stream)
+    var type = fileType.fromStream(file.stream)
     var mime = 'application/octet-stream' // default type
 
     // Make sure to check xml-extension for svg files.
