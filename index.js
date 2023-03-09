@@ -1,6 +1,6 @@
 const { randomBytes } = require('node:crypto')
 const { PassThrough } = require('node:stream')
-const fileType = require('file-type')
+const fileType = require('file-type-node')
 const htmlCommentRegex = require('html-comment-regex')
 const parallel = require('run-parallel')
 const { Upload } = require('@aws-sdk/lib-storage')
