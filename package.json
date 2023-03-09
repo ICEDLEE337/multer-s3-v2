@@ -3,7 +3,6 @@
   "version": "33.0.0",
   "description": "Streaming multer storage engine for AWS S3 with configurable content-type-aware file filtering",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "test": "standard && mocha test/basic.js"
   },
