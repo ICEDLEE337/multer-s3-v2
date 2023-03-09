@@ -1,8 +1,9 @@
 {
   "name": "multer-s3-v3",
   "version": "3.10.0",
-  "description": "Streaming multer storage engine for AWS S3 with file transform",
+  "description": "Streaming multer storage engine for AWS S3 with configurable content-type-aware file filtering",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "standard && mocha test/basic.js"
   },
@@ -25,19 +26,18 @@
   },
   "homepage": "https://github.com/icedlee337/multer-s3-v2#readme",
   "dependencies": {
-    "file-type": "^16.1.0",
-    "is-svg": "^4.2.1",
-    "run-parallel": "^1.1.10"
+    "@aws-sdk/lib-storage": "^3.46.0",
+    "file-type": "^3.3.0",
+    "html-comment-regex": "^1.1.2",
+    "run-parallel": "^1.1.6"
+  },
+  "peerDependencies": {
+    "@aws-sdk/client-s3": "^3.0.0"
   },
   "devDependencies": {
-    "aws-sdk": "^2.2.32",
-    "concat-stream": "^1.5.1",
-    "express": "^4.13.1",
     "form-data": "^1.0.0-rc3",
-    "mocha": "^6.1.2",
-    "multer": "^1.1.0",
+    "multer": "^1.4.5-lts.1",
     "on-finished": "^2.3.0",
-    "standard": "^12.0.1",
     "xtend": "^4.0.1"
   }
 }
