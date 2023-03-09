@@ -26,7 +26,7 @@
   "homepage": "https://github.com/icedlee337/multer-s3-v2#readme",
   "dependencies": {
     "@aws-sdk/lib-storage": "^3.46.0",
-    "file-type-node": "^18.2.4",
+    "file-type-node": "^18.2.5",
     "html-comment-regex": "^1.1.2",
     "run-parallel": "^1.1.6"
   },
