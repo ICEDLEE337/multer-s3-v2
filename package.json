@@ -1,6 +1,6 @@
 {
   "name": "multer-s3-v3",
-  "version": "33.0.8",
+  "version": "33.0.9",
   "description": "Streaming multer storage engine for AWS S3 with configurable content-type-aware file filtering",
   "main": "index.js",
   "scripts": {
